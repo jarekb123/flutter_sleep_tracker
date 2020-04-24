@@ -7,11 +7,22 @@ class RecordsListNotifier extends ChangeNotifier {
 
   RecordsListNotifier(this._sleepRecordsRepo) : _recordsList = [];
 
+  bool _loading = true;
+  bool _hasError = false;
+
+  bool get isLoading => _loading;
+  bool get hasError => _hasError;
   List<SleepRecord> get records => _recordsList;
 
   Future<void> loadRecords() async {
-    final records = await _sleepRecordsRepo.getRecords();
-    _recordsList.addAll(records);
+    try {
+      final records = await _sleepRecordsRepo.getRecords();
+      _recordsList.addAll(records);
+    } catch (error) {
+      debugPrint('$error');
+      _hasError = true;
+    }
+    _loading = false;
     notifyListeners();
   }
 
