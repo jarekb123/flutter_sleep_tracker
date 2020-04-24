@@ -20,6 +20,10 @@ class ThemeProvider extends StatelessWidget {
         buttonTheme: const ButtonThemeData(
           textTheme: ButtonTextTheme.primary,
         ),
+        dividerTheme: const DividerThemeData(
+          space: 1,
+          color: Colors.grey,
+        ),
       ),
       isMaterialAppTheme: true,
       child: child,
@@ -27,6 +31,13 @@ class ThemeProvider extends StatelessWidget {
   }
 }
 
+extension ContextExtension on BuildContext {
+  TextTheme get textTheme => Theme.of(this).textTheme;
+  Color get primaryColor => Theme.of(this).primaryColor;
+}
+
 extension TextStyleExtension on TextStyle {
   TextStyle get bolded => copyWith(fontWeight: FontWeight.bold);
+
+  TextStyle colored(Color color) => copyWith(color: color);
 }

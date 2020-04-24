@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sleeptracker/feature/home/home_widget.dart';
+import 'package:sleeptracker/local_repositories/memory_sleep_records_repo.dart';
+import 'package:sleeptracker/repositories/sleep_records_repo.dart';
 import 'package:sleeptracker/theme.dart';
 import 'package:sleeptracker/utils/date_utils.dart';
 
@@ -31,7 +33,11 @@ class GlobalProviders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [Provider.value(value: DateUtils())],
+      providers: [
+        Provider.value(value: DateUtils()),
+        Provider<SleepRecordsRepo>(
+            create: (context) => MemorySleepRecordsRepo())
+      ],
       child: child,
     );
   }
