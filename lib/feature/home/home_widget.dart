@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:sleeptracker/shared_widgets/buttons.dart';
+import 'package:sleeptracker/utils/date_utils.dart';
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({Key key}) : super(key: key);
@@ -26,10 +29,26 @@ class HomeWidget extends StatelessWidget {
             PrimaryButton(
               onPressed: () {},
               child: const Text('Add new sleeping record'),
-            )
+            ),
+            const SizedBox(height: 32),
           ],
         ),
       ),
     );
+  }
+}
+
+class CurrentDateHeader extends StatelessWidget {
+  const CurrentDateHeader({Key key}) : super(key: key);
+
+  String _formatDate(DateTime date) {
+    return DateFormat('EEEE, d MMM y').format(date).toUpperCase();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final DateUtils dateUtils = Provider.of(context);
+
+    return Text(_formatDate(dateUtils.now()));
   }
 }
