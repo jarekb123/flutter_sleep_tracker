@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sleeptracker/shared_widgets/buttons.dart';
 import 'package:sleeptracker/utils/date_utils.dart';
+import 'package:sleeptracker/theme.dart';
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({Key key}) : super(key: key);
@@ -16,6 +17,7 @@ class HomeWidget extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 8),
             const Padding(
@@ -30,6 +32,8 @@ class HomeWidget extends StatelessWidget {
               onPressed: () {},
               child: const Text('Add new sleeping record'),
             ),
+            const SizedBox(height: 32),
+            const CurrentDateHeader(),
             const SizedBox(height: 32),
           ],
         ),
@@ -49,6 +53,9 @@ class CurrentDateHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final DateUtils dateUtils = Provider.of(context);
 
-    return Text(_formatDate(dateUtils.now()));
+    return Text(
+      _formatDate(dateUtils.now()),
+      style: Theme.of(context).textTheme.subhead.bolded,
+    );
   }
 }

@@ -26,3 +26,7 @@ class ThemeProvider extends StatelessWidget {
     );
   }
 }
+
+extension TextStyleExtension on TextStyle {
+  TextStyle get bolded => copyWith(fontWeight: FontWeight.bold);
+}
