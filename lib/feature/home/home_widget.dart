@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sleeptracker/feature/home/records_list_notifiers.dart';
+import 'package:sleeptracker/feature/home/sleep_records_list_widget.dart';
+import 'package:sleeptracker/repositories/sleep_records_repo.dart';
 import 'package:sleeptracker/shared_widgets/buttons.dart';
 import 'package:sleeptracker/utils/date_utils.dart';
 import 'package:sleeptracker/theme.dart';
@@ -40,79 +43,15 @@ class HomeWidget extends StatelessWidget {
               const CurrentDateHeader(),
               const SizedBox(height: 32),
               const Expanded(
-                child: SleepRecordsList(),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: SleepRecordsList(),
+                ),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-}
-
-class SleepRecordsList extends StatelessWidget {
-  const SleepRecordsList({
-    Key key,
-  }) : super(key: key);
-
-  static const _borderRadius = BorderRadius.vertical(top: Radius.circular(16));
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      borderRadius: _borderRadius,
-      elevation: 4,
-      child: ClipRRect(
-        borderRadius: _borderRadius,
-        child: ListView.separated(
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            return SleepRecordWidget();
-          },
-          separatorBuilder: (_, __) => const Divider(height: 1),
-        ),
-      ),
-    );
-  }
-}
-
-class SleepRecordWidget extends StatelessWidget {
-  const SleepRecordWidget({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Container(
-          color: Colors.grey[200],
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            children: <Widget>[
-              Text(
-                '10:42',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Text(
-                'PM',
-                style: context.textTheme.caption,
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(width: 12),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Night Sleep',
-              style: context.textTheme.bodyText1.colored(context.primaryColor),
-            ),
-            Text('6 hours 12 minutes'),
-          ],
-        )
-      ],
     );
   }
 }
