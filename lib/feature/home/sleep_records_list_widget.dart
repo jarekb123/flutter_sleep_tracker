@@ -93,14 +93,32 @@ class SleepRecordDateWidget extends StatelessWidget {
 
   String _formatHour(DateTime date) {
     // DateFormat has no such method to extract only number from AM/PM hour format
-    final dateHour12 = date.copyWith(hour: date.hour % 12);
+    final hour =
+        date.hour == 0 ? 12 : date.hour > 12 ? date.hour % 12 : date.hour;
+
+    final dateHour12 = date.copyWith(hour: hour);
 
     return DateFormat.Hm().format(dateHour12);
   }
 
   String _formateHourAmPm(DateTime date) {
     // DateFormat/DateTime has no such method to find out if hour is AM or PM
-    return date.hour >= 12 ? 'PM' : 'AM';
+    const am = 'AM';
+    const pm = 'PM';
+
+    if (date.hour == 12) {
+      if (date.minute == 0) {
+        return am;
+      } else {
+        return pm;
+      }
+    } else if (date.hour > 12) {
+      return pm;
+    } else if (date.hour == 0 && date.minute == 0) {
+      return pm;
+    } else {
+      return am;
+    }
   }
 
   @override

@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:meta/meta.dart';
+import 'package:sleeptracker/feature/home/sleep_records_list_widget.dart';
+
+void main() {
+  group('SleepRecordDateWidget', () {
+    setUp(() {
+      initializeDateFormatting('en');
+    });
+
+    @isTest
+    void testWidgetWithDate(
+      String description,
+      DateTime date,
+      String expectedFirstLine,
+      String expectedSecondLine,
+    ) {
+      return testWidgets(description, (tester) async {
+        await tester.pumpWidget(
+          Directionality(
+            textDirection: TextDirection.ltr,
+            child: SleepRecordDateWidget(date),
+          ),
+        );
+
+        expect(find.text(expectedFirstLine), findsOneWidget);
+        expect(find.text(expectedSecondLine), findsOneWidget);
+      });
+    }
+
+    testWidgetWithDate('displays 12:00 date as 12:00 AM',
+        DateTime(2020, 5, 4, 12, 00), '12:00', 'AM');
+
+    testWidgetWithDate('displays 8:01 date as 08:01 AM',
+        DateTime(2020, 5, 4, 8, 01), '08:01', 'AM');
+
+    testWidgetWithDate('displays 00:00 date as 12:00 PM',
+        DateTime(2020, 5, 4, 0, 0), '12:00', 'PM');
+
+    testWidgetWithDate('displays 12:01 date as 12:01 PM',
+        DateTime(2020, 5, 4, 12, 01), '12:01', 'PM');
+
+    testWidgetWithDate('displays 14:00 as 02:00 PM',
+        DateTime(2020, 5, 4, 14, 00), '02:00', 'PM');
+
+    testWidgetWithDate('displays 22:00 as 10:00 PM',
+        DateTime(2020, 5, 4, 22, 00), '10:00', 'PM');
+  });
+}
