@@ -30,20 +30,22 @@ void main() {
       });
     }
 
-    testWidgetWithDate('displays 12:00 date as 12:00 AM',
-        DateTime(2020, 5, 4, 12, 00), '12:00', 'AM');
+    // 12h clock: https://pl.wikipedia.org/wiki/Zegar_12-godzinny
 
-    testWidgetWithDate('displays 8:01 date as 08:01 AM',
-        DateTime(2020, 5, 4, 8, 01), '08:01', 'AM');
+    testWidgetWithDate('displays 12:00 date as 12:00 PM',
+        DateTime(2020, 5, 4, 12, 00), '12:00', 'PM');
 
-    testWidgetWithDate('displays 00:00 date as 12:00 PM',
-        DateTime(2020, 5, 4, 0, 0), '12:00', 'PM');
+    testWidgetWithDate('displays 8:01 date as 8:01 AM',
+        DateTime(2020, 5, 4, 8, 01), '8:01', 'AM');
+
+    testWidgetWithDate('displays 00:00 date as 12:00 AM',
+        DateTime(2020, 5, 4, 0, 0), '12:00', 'AM');
 
     testWidgetWithDate('displays 12:01 date as 12:01 PM',
         DateTime(2020, 5, 4, 12, 01), '12:01', 'PM');
 
-    testWidgetWithDate('displays 14:00 as 02:00 PM',
-        DateTime(2020, 5, 4, 14, 00), '02:00', 'PM');
+    testWidgetWithDate('displays 14:00 as 2:00 PM',
+        DateTime(2020, 5, 4, 14, 00), '2:00', 'PM');
 
     testWidgetWithDate('displays 22:00 as 10:00 PM',
         DateTime(2020, 5, 4, 22, 00), '10:00', 'PM');
