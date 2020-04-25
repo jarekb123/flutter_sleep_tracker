@@ -2,8 +2,10 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sleeptracker/feature/add_record/add_record_notifiers.dart';
+import 'package:sleeptracker/i18n/i18n.dart';
 import 'package:sleeptracker/repositories/sleep_records_repo.dart';
 import 'package:sleeptracker/shared_widgets/buttons.dart';
+import 'package:sleeptracker/shared_widgets/custom_icons.dart';
 import 'package:sleeptracker/theme.dart';
 import 'package:sleeptracker/utils/provider_utils.dart';
 
@@ -49,7 +51,7 @@ class _AddRecordForm extends StatefulWidget {
 }
 
 class __AddRecordFormState extends State<_AddRecordForm> {
-  SleepType _sleepType;
+  SleepType _sleepType = SleepType.night;
 
   @override
   Widget build(BuildContext context) {
@@ -57,16 +59,16 @@ class __AddRecordFormState extends State<_AddRecordForm> {
       children: [
         Consumer<AddRecordNotifier>(
           builder: (context, addRecord, _) => _FormField(
-            icon: Icon(Icons.calendar_today),
+            icon: const Icon(CustomIcons.calendar),
             title: 'Date and time',
             subtitle: '${addRecord.date}',
           ),
         ),
         const Divider(indent: 8, endIndent: 8),
         _FormField(
-          icon: Icon(Icons.mic),
+          icon: const Icon(CustomIcons.moon),
           title: 'Sleep type',
-          subtitle: '29 November 2019',
+          subtitle: _sleepType == SleepType.night ? I18n.nightSleep : I18n.nap,
           trailing: _SleepTypeSwitch(
             value: _sleepType == SleepType.nap,
             onChanged: (isNap) {
