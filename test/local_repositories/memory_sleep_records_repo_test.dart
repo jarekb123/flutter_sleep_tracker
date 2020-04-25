@@ -64,5 +64,32 @@ void main() {
         ),
       );
     });
+
+    test('records are sorted by date (starting with latest)', () async {
+      await memorySleepRecordsRepo.addRecord(
+          DateTime(2020, 4, 1), const Duration(hours: 10), SleepType.nap);
+      await memorySleepRecordsRepo.addRecord(DateTime(2020, 4, 1, 10),
+          const Duration(seconds: 10), SleepType.night);
+
+      final list = await memorySleepRecordsRepo.getRecords();
+      expect(list, hasLength(2));
+      expect(
+        list,
+        [
+          SleepRecord(
+            id: 2,
+            createdAt: DateTime(2020, 4, 1, 10),
+            duration: const Duration(seconds: 10),
+            sleepType: SleepType.night,
+          ),
+          SleepRecord(
+            id: 1,
+            createdAt: DateTime(2020, 4, 1),
+            duration: const Duration(hours: 10),
+            sleepType: SleepType.nap,
+          ),
+        ],
+      );
+    });
   });
 }

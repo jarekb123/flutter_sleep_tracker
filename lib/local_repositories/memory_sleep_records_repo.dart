@@ -15,7 +15,9 @@ class MemorySleepRecordsRepo implements SleepRecordsRepo {
   }
 
   @override
-  Future<Iterable<SleepRecord>> getRecords() async => _recordsList;
+  Future<Iterable<SleepRecord>> getRecords() async => _recordsList
+    ..sort(
+        (record1, record2) => record2.createdAt.compareTo(record1.createdAt));
 
   @override
   Future<void> removeRecord(int id) async {
