@@ -67,7 +67,7 @@ class CurrentDateHeader extends StatelessWidget {
 
     return Text(
       _formatDate(dateUtils.now()),
-      style: Theme.of(context).textTheme.headline5.bolded,
+      style: Theme.of(context).textTheme.headline6.bolded,
     );
   }
 }
