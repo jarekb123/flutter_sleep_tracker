@@ -7,6 +7,7 @@ import 'package:sleeptracker/feature/add_record/add_record_notifiers.dart';
 import 'package:sleeptracker/i18n/i18n.dart';
 import 'package:sleeptracker/repositories/sleep_records_repo.dart';
 import 'package:sleeptracker/shared_widgets/buttons.dart';
+import 'package:sleeptracker/shared_widgets/change_notifier_listener.dart';
 import 'package:sleeptracker/shared_widgets/custom_icons.dart';
 import 'package:sleeptracker/shared_widgets/duration_text.dart';
 import 'package:sleeptracker/theme.dart';
@@ -61,12 +62,41 @@ class __AddRecordFormState extends State<_AddRecordForm> {
     return DateFormat.yMMMMd().add_jm().format(date);
   }
 
-  void _chooseDuration(BuildContext context) async {
+  Future<void> _chooseDuration(BuildContext context) async {
     final duration = await showDurationPicker(
         context: context, initialTime: _duration ?? const Duration(hours: 6));
     setState(() {
       _duration = duration;
     });
+  }
+
+  Widget _saveButton(BuildContext context) {
+    return ChangeNotifierListener<AddRecordNotifier>(
+      listener: (context, addRecord) {
+        switch (addRecord.addState) {
+          case AddRecordState.loading:
+            Scaffold.of(context)
+                .showSnackBar(SnackBar(content: Text(I18n.loading)));
+            break;
+          case AddRecordState.success:
+            Scaffold.of(context).hideCurrentSnackBar();
+            Navigator.pop(context);
+            break;
+          case AddRecordState.error:
+            Scaffold.of(context)
+                .showSnackBar(SnackBar(content: Text(I18n.addRecordError)));
+            break;
+          default:
+            break;
+        }
+      },
+      child: PrimaryButton(
+        onPressed: () {
+          inject<AddRecordNotifier>(context).add(_sleepType, _duration);
+        },
+        child: Text(I18n.save),
+      ),
+    );
   }
 
   @override
@@ -76,14 +106,14 @@ class __AddRecordFormState extends State<_AddRecordForm> {
         Consumer<AddRecordNotifier>(
           builder: (context, addRecord, _) => _FormField(
             icon: const Icon(CustomIcons.calendar),
-            title: Text('Date and time'),
+            title: Text(I18n.dateAndTime),
             subtitle: Text(_formatDate(addRecord.date)),
           ),
         ),
         const Divider(indent: 8, endIndent: 8),
         _FormField(
           icon: const Icon(CustomIcons.moon),
-          title: Text('Sleep type'),
+          title: Text(I18n.sleepType),
           subtitle:
               Text(_sleepType == SleepType.night ? I18n.nightSleep : I18n.nap),
           trailing: _SleepTypeSwitch(
@@ -98,7 +128,7 @@ class __AddRecordFormState extends State<_AddRecordForm> {
         const Divider(indent: 8, endIndent: 8),
         _FormField(
           icon: const Icon(Icons.timer),
-          title: Text('Sleep duration'),
+          title: Text(I18n.sleepDuration),
           subtitle:
               _duration != null ? DurationText(_duration) : const Text('-'),
           onTap: () => _chooseDuration(context),
@@ -107,10 +137,7 @@ class __AddRecordFormState extends State<_AddRecordForm> {
         const Spacer(),
         Padding(
           padding: _horizontalPadding,
-          child: PrimaryButton(
-            onPressed: () {},
-            child: const Text('Save'),
-          ),
+          child: _saveButton(context),
         ),
       ],
     );

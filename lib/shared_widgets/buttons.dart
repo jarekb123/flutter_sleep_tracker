@@ -12,7 +12,7 @@ class PrimaryButton extends StatelessWidget {
     final borderRadius = BorderRadius.circular(40);
 
     return RaisedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       shape: RoundedRectangleBorder(borderRadius: borderRadius),
       padding: EdgeInsets.zero,
       child: Ink(

@@ -18,6 +18,15 @@ abstract class _I18n {
 
   String get nap;
   String get nightSleep;
+
+  // form
+  String get dateAndTime;
+  String get sleepType;
+  String get sleepDuration;
+  String get save;
+  String get loading;
+  String get addRecordError;
+
 }
 
 class _EnI18n implements _I18n {
@@ -36,4 +45,22 @@ class _EnI18n implements _I18n {
 
   @override
   String get nightSleep => 'Night\'s Sleep';
+
+  @override
+  String get dateAndTime => 'Date and Time';
+
+  @override
+  String get sleepDuration => 'Sleep Duration';
+
+  @override
+  String get sleepType => 'Sleep Type';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get addRecordError => 'Error: Try again';
+
+  @override
+  String get loading => 'Your record is being added...';
 }
