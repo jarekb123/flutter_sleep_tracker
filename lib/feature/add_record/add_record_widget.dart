@@ -1,11 +1,13 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sleeptracker/feature/add_record/add_record_notifiers.dart';
 import 'package:sleeptracker/i18n/i18n.dart';
 import 'package:sleeptracker/repositories/sleep_records_repo.dart';
 import 'package:sleeptracker/shared_widgets/buttons.dart';
 import 'package:sleeptracker/shared_widgets/custom_icons.dart';
+import 'package:sleeptracker/shared_widgets/duration_text.dart';
 import 'package:sleeptracker/theme.dart';
 import 'package:sleeptracker/utils/provider_utils.dart';
 
@@ -52,6 +54,11 @@ class _AddRecordForm extends StatefulWidget {
 
 class __AddRecordFormState extends State<_AddRecordForm> {
   SleepType _sleepType = SleepType.night;
+  Duration _duration;
+
+  String _formatDate(DateTime date) {
+    return DateFormat.yMMMMd().add_jm().format(date);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,15 +67,16 @@ class __AddRecordFormState extends State<_AddRecordForm> {
         Consumer<AddRecordNotifier>(
           builder: (context, addRecord, _) => _FormField(
             icon: const Icon(CustomIcons.calendar),
-            title: 'Date and time',
-            subtitle: '${addRecord.date}',
+            title: Text('Date and time'),
+            subtitle: Text(_formatDate(addRecord.date)),
           ),
         ),
         const Divider(indent: 8, endIndent: 8),
         _FormField(
           icon: const Icon(CustomIcons.moon),
-          title: 'Sleep type',
-          subtitle: _sleepType == SleepType.night ? I18n.nightSleep : I18n.nap,
+          title: Text('Sleep type'),
+          subtitle:
+              Text(_sleepType == SleepType.night ? I18n.nightSleep : I18n.nap),
           trailing: _SleepTypeSwitch(
             value: _sleepType == SleepType.nap,
             onChanged: (isNap) {
@@ -81,8 +89,9 @@ class __AddRecordFormState extends State<_AddRecordForm> {
         const Divider(indent: 8, endIndent: 8),
         _FormField(
           icon: Icon(Icons.timer),
-          title: 'Sleep duration',
-          subtitle: '29 November 2019',
+          title: Text('Sleep duration'),
+          subtitle:
+              _duration != null ? DurationText(_duration) : const Text('-'),
         ),
         const Divider(indent: 8, endIndent: 8),
         const Spacer(),
@@ -167,8 +176,8 @@ class _FormField extends StatelessWidget {
   }) : super(key: key);
 
   final Widget icon;
-  final String title;
-  final String subtitle;
+  final Widget title;
+  final Widget subtitle;
   final Widget trailing;
 
   @override
@@ -187,8 +196,8 @@ class _FormField extends StatelessWidget {
           child: icon,
         ),
       ),
-      title: Text(title, style: titleStyle),
-      subtitle: Text(subtitle),
+      title: DefaultTextStyle(style: titleStyle, child: title),
+      subtitle: subtitle,
       trailing: trailing != null
           ? Container(
               width: 48,

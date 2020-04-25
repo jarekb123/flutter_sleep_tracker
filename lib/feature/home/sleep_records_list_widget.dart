@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sleeptracker/feature/home/records_list_notifiers.dart';
 import 'package:sleeptracker/i18n/i18n.dart';
 import 'package:sleeptracker/repositories/sleep_records_repo.dart';
+import 'package:sleeptracker/shared_widgets/duration_text.dart';
 import 'package:sleeptracker/theme.dart';
 
 class SleepRecordsList extends StatelessWidget {
@@ -86,23 +87,6 @@ class SleepRecordWidget extends StatelessWidget {
         )
       ],
     );
-  }
-}
-
-class DurationText extends StatelessWidget {
-  const DurationText(
-    this.duration, {
-    Key key,
-  }) : super(key: key);
-
-  final Duration duration;
-
-  @override
-  Widget build(BuildContext context) {
-    final hours = I18n.hours(duration.inHours);
-    final minutes = I18n.minutes(duration.inMinutes % 60);
-
-    return Text('$hours $minutes');
   }
 }
 
