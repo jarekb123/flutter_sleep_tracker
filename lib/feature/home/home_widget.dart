@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:sleeptracker/feature/add_record/add_record_widget.dart';
 import 'package:sleeptracker/feature/home/records_list_notifiers.dart';
 import 'package:sleeptracker/feature/home/sleep_records_list_widget.dart';
 import 'package:sleeptracker/shared_widgets/buttons.dart';
@@ -47,10 +48,7 @@ class HomeWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              PrimaryButton(
-                onPressed: () {},
-                child: const Text('Add new sleeping record'),
-              ),
+              const _AddNewRecordButton(),
               const SizedBox(height: 80),
               const CurrentDateHeader(),
               const SizedBox(height: 32),
@@ -62,6 +60,27 @@ class HomeWidget extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _AddNewRecordButton extends StatelessWidget {
+  const _AddNewRecordButton({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PrimaryButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const AddRecordWidget()),
+        ).then((value) {
+          inject<RecordsListNotifier>(context).loadRecords();
+        });
+      },
+      child: const Text('Add new sleeping record'),
     );
   }
 }
