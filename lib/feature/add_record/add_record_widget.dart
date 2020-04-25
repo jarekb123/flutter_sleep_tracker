@@ -29,10 +29,12 @@ class AddRecordWidget extends StatelessWidget {
         body: Column(
           children: <Widget>[
             const SizedBox(height: 16),
-            const Padding(
+            Padding(
               padding: _horizontalPadding,
-              child: Placeholder(
-                fallbackHeight: 200,
+              child: Container(
+                alignment: Alignment.center,
+                height: 200,
+                child: const FlareActor('assets/moon.flr', animation: 'go'),
               ),
             ),
             const SizedBox(height: 32),
