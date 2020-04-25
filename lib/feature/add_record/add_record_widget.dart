@@ -90,9 +90,17 @@ class __AddRecordFormState extends State<_AddRecordForm> {
             break;
         }
       },
-      child: PrimaryButton(
-        onPressed: () {
-          inject<AddRecordNotifier>(context).add(_sleepType, _duration);
+      child: Consumer<AddRecordNotifier>(
+        builder: (_, addRecordNotifier, child) {
+          return PrimaryButton(
+            onPressed: _duration == null ||
+                    addRecordNotifier.addState == AddRecordState.loading
+                ? null
+                : () {
+                    addRecordNotifier.add(_sleepType, _duration);
+                  },
+            child: child,
+          );
         },
         child: Text(I18n.save),
       ),

@@ -11,6 +11,18 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final borderRadius = BorderRadius.circular(40);
 
+    final activeGradientColors = [
+      Theme.of(context).primaryColor,
+      Colors.blue[500],
+    ];
+
+    final disabledGradientColors = [
+      Colors.grey[800],
+      Colors.grey,
+    ];
+
+    final isDisabled = onPressed == null;
+
     return RaisedButton(
       onPressed: onPressed,
       shape: RoundedRectangleBorder(borderRadius: borderRadius),
@@ -22,10 +34,7 @@ class PrimaryButton extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             stops: [0, 1],
-            colors: [
-              Theme.of(context).primaryColor,
-              Colors.blue[500],
-            ],
+            colors: isDisabled ? disabledGradientColors : activeGradientColors,
           ),
         ),
         child: Container(
