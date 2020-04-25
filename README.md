@@ -10,6 +10,9 @@ Sleep Tracker Case Study
 * Run `flutter test`
 
 ## Run
+
+Run `flutter channel master && flutter doctor`
+
 * Linux: `flutter run -d Linux`
 * Android: `flutter run -d your-android-device`
 
