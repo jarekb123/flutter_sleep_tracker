@@ -1,3 +1,6 @@
+# Coverage report
+coverage/
+
 # Miscellaneous
 *.class
 *.log
