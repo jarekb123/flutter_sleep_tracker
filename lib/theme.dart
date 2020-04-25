@@ -10,10 +10,12 @@ class ThemeProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primary = Colors.blue[900];
+
     return Theme(
       data: ThemeData.from(
         colorScheme: ColorScheme.light(
-          primary: Colors.blue[900],
+          primary: primary,
           onPrimary: Colors.white,
         ),
       ).copyWith(
@@ -24,6 +26,7 @@ class ThemeProvider extends StatelessWidget {
           space: 1,
           color: Colors.grey,
         ),
+        iconTheme: IconThemeData(color: primary),
       ),
       isMaterialAppTheme: true,
       child: child,
