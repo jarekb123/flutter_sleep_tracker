@@ -5,7 +5,6 @@ import 'package:sleeptracker/feature/home/records_list_notifiers.dart';
 import 'package:sleeptracker/i18n/i18n.dart';
 import 'package:sleeptracker/repositories/sleep_records_repo.dart';
 import 'package:sleeptracker/theme.dart';
-import 'package:sleeptracker/utils/date_utils.dart';
 
 class SleepRecordsList extends StatelessWidget {
   const SleepRecordsList({
@@ -44,7 +43,7 @@ class SleepRecordsList extends StatelessWidget {
                   SleepRecord(
                     id: 1,
                     createdAt: DateTime(2020, 4, 24, 22, 30),
-                    duration: Duration(hours: 6),
+                    duration: const Duration(hours: 1),
                     sleepType: SleepType.nap,
                   ),
                 );
@@ -68,6 +67,9 @@ class SleepRecordWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sleepType =
+        sleepRecord.sleepType == SleepType.nap ? I18n.nap : I18n.nightSleep;
+
     return Row(
       children: <Widget>[
         SleepRecordDateWidget(sleepRecord.createdAt),
@@ -76,10 +78,10 @@ class SleepRecordWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Night Sleep',
+              sleepType,
               style: context.textTheme.bodyText1.colored(context.primaryColor),
             ),
-            const DurationText(Duration(hours: 5, minutes: 1)),
+            DurationText(sleepRecord.duration),
           ],
         )
       ],

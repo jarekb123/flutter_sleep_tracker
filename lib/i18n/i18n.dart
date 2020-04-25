@@ -15,6 +15,9 @@ abstract class _I18n {
 
   String hours(int hours);
   String minutes(int minutes);
+
+  String get nap;
+  String get nightSleep;
 }
 
 class _EnI18n implements _I18n {
@@ -27,4 +30,10 @@ class _EnI18n implements _I18n {
       zero: '$minutes minutes',
       one: '$minutes minute',
       other: '$minutes minutes');
+
+  @override
+  String get nap => 'Nap';
+
+  @override
+  String get nightSleep => 'Night\'s Sleep';
 }
