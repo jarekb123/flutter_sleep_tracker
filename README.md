@@ -2,6 +2,8 @@
 
 Sleep Tracker Case Study
 
+<img src="preview.gif" height=600>
+
 ## Flutter info
 * Flutter channel: master (v 1.18) - why? Because you can run/debug it as desktop app.
 * Architecture: Provider with ChangeNotifier
