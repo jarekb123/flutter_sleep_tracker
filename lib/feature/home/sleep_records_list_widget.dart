@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sleeptracker/feature/home/records_list_notifiers.dart';
+import 'package:sleeptracker/i18n/i18n.dart';
 import 'package:sleeptracker/repositories/sleep_records_repo.dart';
 import 'package:sleeptracker/theme.dart';
 import 'package:sleeptracker/utils/date_utils.dart';
@@ -78,11 +79,28 @@ class SleepRecordWidget extends StatelessWidget {
               'Night Sleep',
               style: context.textTheme.bodyText1.colored(context.primaryColor),
             ),
-            Text('6 hours 12 minutes'),
+            const DurationText(Duration(hours: 5, minutes: 1)),
           ],
         )
       ],
     );
+  }
+}
+
+class DurationText extends StatelessWidget {
+  const DurationText(
+    this.duration, {
+    Key key,
+  }) : super(key: key);
+
+  final Duration duration;
+
+  @override
+  Widget build(BuildContext context) {
+    final hours = I18n.hours(duration.inHours);
+    final minutes = I18n.minutes(duration.inMinutes % 60);
+
+    return Text('$hours $minutes');
   }
 }
 
