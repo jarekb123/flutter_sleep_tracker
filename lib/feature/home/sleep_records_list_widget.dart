@@ -112,6 +112,7 @@ class SleepRecordDateWidget extends StatelessWidget {
   final DateTime date;
 
   List<String> _formatTime() {
+    // jm: 8:55 AM
     final formattedTime = DateFormat.jm().format(date).toUpperCase().split(' ');
 
     return formattedTime;
