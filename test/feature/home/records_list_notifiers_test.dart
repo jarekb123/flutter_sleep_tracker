@@ -39,18 +39,16 @@ void main() {
     test('loadRecords propagates errors', () async {
       when(_mockSleepRecordsRepo.getRecords())
           .thenAnswer((_) => Future.error('error'));
-      dynamic error;
+      bool error;
       List<SleepRecord> records;
-      try {
-        recordsListNotifier.addListener(() {
-          records = recordsListNotifier.records;
-        });
-        await recordsListNotifier.loadRecords();
-      } catch (err) {
-        error = err;
-      }
-      expect(records, isNull);
-      expect(error, isNotNull);
+      recordsListNotifier.addListener(() {
+        records = recordsListNotifier.records;
+        error = recordsListNotifier.hasError;
+      });
+      await recordsListNotifier.loadRecords();
+
+      expect(records, isEmpty);
+      expect(error, isTrue);
     });
 
     test('removeRecord removes data from repository', () async {

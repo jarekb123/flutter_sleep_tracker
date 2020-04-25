@@ -29,20 +29,15 @@ class SleepRecordsList extends StatelessWidget {
               return const _LoadingRecordsWidget();
             } else if (state.records.isEmpty) {
               return const _NoRecordsWidget();
+            } else if (state.hasError) {
+              return Container(); // TODO
             }
 
             return ListView.separated(
-              itemCount: 3,
+              itemCount: state.records.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                return SleepRecordWidget(
-                  SleepRecord(
-                    id: 1,
-                    createdAt: DateTime(2020, 4, 24, 22, 30),
-                    duration: const Duration(hours: 1),
-                    sleepType: SleepType.nap,
-                  ),
-                );
+                return SleepRecordWidget(state.records[index]);
               },
               separatorBuilder: (_, __) => const Divider(height: 1),
             );

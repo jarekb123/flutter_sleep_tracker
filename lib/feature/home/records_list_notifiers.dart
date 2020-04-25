@@ -17,7 +17,9 @@ class RecordsListNotifier extends ChangeNotifier {
   Future<void> loadRecords() async {
     try {
       final records = await _sleepRecordsRepo.getRecords();
-      _recordsList.addAll(records);
+      _recordsList
+        ..clear()
+        ..addAll(records);
     } catch (error) {
       debugPrint('$error');
       _hasError = true;
