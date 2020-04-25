@@ -1,5 +1,6 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_duration_picker/flutter_duration_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sleeptracker/feature/add_record/add_record_notifiers.dart';
@@ -60,6 +61,14 @@ class __AddRecordFormState extends State<_AddRecordForm> {
     return DateFormat.yMMMMd().add_jm().format(date);
   }
 
+  void _chooseDuration(BuildContext context) async {
+    final duration = await showDurationPicker(
+        context: context, initialTime: _duration ?? const Duration(hours: 6));
+    setState(() {
+      _duration = duration;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -88,10 +97,11 @@ class __AddRecordFormState extends State<_AddRecordForm> {
         ),
         const Divider(indent: 8, endIndent: 8),
         _FormField(
-          icon: Icon(Icons.timer),
+          icon: const Icon(Icons.timer),
           title: Text('Sleep duration'),
           subtitle:
               _duration != null ? DurationText(_duration) : const Text('-'),
+          onTap: () => _chooseDuration(context),
         ),
         const Divider(indent: 8, endIndent: 8),
         const Spacer(),
@@ -173,12 +183,14 @@ class _FormField extends StatelessWidget {
     @required this.title,
     @required this.subtitle,
     this.trailing,
+    this.onTap,
   }) : super(key: key);
 
   final Widget icon;
   final Widget title;
   final Widget subtitle;
   final Widget trailing;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -188,6 +200,7 @@ class _FormField extends StatelessWidget {
     // center vertically leading icon
     // https://github.com/flutter/flutter/issues/28685#issuecomment-478130992
     return ListTile(
+      onTap: onTap,
       leading: Container(
         width: 0,
         alignment: Alignment.center,
