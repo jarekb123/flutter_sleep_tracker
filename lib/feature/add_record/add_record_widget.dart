@@ -78,7 +78,7 @@ class __AddRecordFormState extends State<_AddRecordForm> {
         switch (addRecord.addState) {
           case AddRecordState.loading:
             Scaffold.of(context)
-                .showSnackBar(SnackBar(content: Text(I18n.loading)));
+                .showSnackBar(SnackBar(content: Text(I18n.addingRecord)));
             break;
           case AddRecordState.success:
             Scaffold.of(context).hideCurrentSnackBar();

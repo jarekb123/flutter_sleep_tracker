@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sleeptracker/feature/add_record/add_record_widget.dart';
 import 'package:sleeptracker/feature/home/home_widget.dart';
 import 'package:sleeptracker/local_repositories/memory_sleep_records_repo.dart';
 import 'package:sleeptracker/repositories/sleep_records_repo.dart';

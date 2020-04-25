@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sleeptracker/feature/home/records_list_notifiers.dart';
 import 'package:sleeptracker/feature/home/sleep_records_list_widget.dart';
 import 'package:sleeptracker/shared_widgets/buttons.dart';
+import 'package:sleeptracker/shared_widgets/custom_icons.dart';
 import 'package:sleeptracker/utils/date_utils.dart';
 import 'package:sleeptracker/theme.dart';
 import 'package:sleeptracker/utils/provider_utils.dart';
@@ -14,7 +15,7 @@ class HomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => RecordsListNotifier(inject(context)),
+      create: (context) => RecordsListNotifier(inject(context))..loadRecords(),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Sleep Tracker'),
@@ -24,6 +25,19 @@ class HomeWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
+                    shape: BoxShape.circle),
+                child: const Center(
+                  child: Icon(
+                    CustomIcons.moon,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
               const SizedBox(height: 16),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 8.0),
@@ -40,11 +54,9 @@ class HomeWidget extends StatelessWidget {
               const SizedBox(height: 80),
               const CurrentDateHeader(),
               const SizedBox(height: 32),
-              const Expanded(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: SleepRecordsList(),
-                ),
+              const SizedBox(
+                width: double.infinity,
+                child: SleepRecordsList(),
               ),
             ],
           ),

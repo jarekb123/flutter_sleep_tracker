@@ -17,6 +17,7 @@ class ThemeProvider extends StatelessWidget {
         colorScheme: ColorScheme.light(
           primary: primary,
           onPrimary: Colors.white,
+          secondary: const Color(0xFFFFC842)
         ),
       ).copyWith(
         buttonTheme: const ButtonThemeData(

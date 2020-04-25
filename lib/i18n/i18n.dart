@@ -13,6 +13,9 @@ abstract class _I18n {
     return _EnI18n();
   }
 
+  String get loadingRecords;
+  String get noRecords;
+
   String hours(int hours);
   String minutes(int minutes);
 
@@ -24,12 +27,17 @@ abstract class _I18n {
   String get sleepType;
   String get sleepDuration;
   String get save;
-  String get loading;
+  String get addingRecord;
   String get addRecordError;
-
 }
 
 class _EnI18n implements _I18n {
+  @override
+  String get loadingRecords => 'Loading sleeping records...';
+  
+  @override
+  String get noRecords => 'No records added :(';
+
   @override
   String hours(int hours) => Intl.plural(hours,
       zero: '$hours hours', one: '$hours hour', other: '$hours hours');
@@ -62,5 +70,5 @@ class _EnI18n implements _I18n {
   String get addRecordError => 'Error: Try again';
 
   @override
-  String get loading => 'Your record is being added...';
+  String get addingRecord => 'Your record is being added...';
 }
