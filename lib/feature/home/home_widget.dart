@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sleeptracker/feature/home/records_list_notifiers.dart';
 import 'package:sleeptracker/feature/home/sleep_records_list_widget.dart';
-import 'package:sleeptracker/repositories/sleep_records_repo.dart';
 import 'package:sleeptracker/shared_widgets/buttons.dart';
 import 'package:sleeptracker/utils/date_utils.dart';
 import 'package:sleeptracker/theme.dart';
@@ -69,7 +67,7 @@ class CurrentDateHeader extends StatelessWidget {
 
     return Text(
       _formatDate(dateUtils.now()),
-      style: Theme.of(context).textTheme.subhead.bolded,
+      style: Theme.of(context).textTheme.headline5.bolded,
     );
   }
 }
